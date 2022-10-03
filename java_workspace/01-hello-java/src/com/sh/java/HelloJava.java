@@ -14,7 +14,10 @@ public class HelloJava {
 	/**
 	 * javadoc 주석 - 프로그램 문서화 클래스나 메소드 레벨(위)에 작성
 	 * 
-	 * 메인메소드 - 자바프로그램의 시작과 끝 -JVM은 main메소드를 찾아 실행 -main 메소드안의 명령어를 모두 실행하면 프로그램 종료
+	 * 메인메소드 
+	 * - 자바프로그램의 시작과 끝 
+	 * -JVM은 main메소드를 찾아 실행 
+	 * -main 메소드안의 명령어를 모두 실행하면 프로그램 종료
 	 * -프로그당 하나의 main메소드가 존재
 	 * 
 	 * @param args
@@ -48,7 +51,9 @@ public class HelloJava {
 	}
 
 	/**
-	 * 메소드 -작업할 내용 -객체를 통해 호출되어야 한다.
+	 * 메소드 
+	 * -작업할 내용 
+	 * -객체를 통해 호출되어야 한다.
 	 */
 	public void foo() {
 		System.out.println("fooooooooooooo!");
