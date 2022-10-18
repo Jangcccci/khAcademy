@@ -71,6 +71,7 @@ public class IfStudy {
 		}
 		
 		System.out.printf("당신의 학점은 %s입니다.\n", grade);
+
 	}
 	
 	/**

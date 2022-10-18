@@ -22,8 +22,8 @@ public class OperatorStudy {
 //		study.test4();
 //		study.test5();
 //		study.test6();
-//		study.test7();
-		study.test8();
+		study.test7();
+//		study.test8();
 
 	}
 
@@ -99,8 +99,11 @@ public class OperatorStudy {
 	}
 
 	/**
-	 * 이항연산자 - 논리비교연산 - 좌항/우항 모두 논리값이 와야한다. - && AND 좌우항이 모두 참인 경우, 참 - \\ OR 좌우항중
-	 * 하나라도 참이면, 참
+	 * 이항연산자 
+	 * - 논리비교연산 
+	 * - 좌항/우항 모두 논리값이 와야한다. 
+	 * - && AND 좌우항이 모두 참인 경우, 참 
+	 * - || OR 좌우항 중 하나라도 참이면, 참
 	 * 
 	 */
 
@@ -132,12 +135,12 @@ public class OperatorStudy {
 
 		// & AND
 		// 좌항이 거짓이어도 우항을 검사하는 AND 연산자
-		System.out.println(a == 0 && b++ > 0);
+		System.out.println(a == 0 & b++ > 0);
 		System.out.printf("a = %d, b = %d\n", a, b);
 
 		// | OR
 		// 좌항이 참이어도 우항을 검사하는 OR 연산자
-		System.out.println(a > 0 || b++ == 0);
+		System.out.println(a > 0 | b++ == 0);
 		System.out.printf("a = %d, b = %d\n", a, b);
 	}
 
@@ -237,7 +240,7 @@ public class OperatorStudy {
 		// 후위증감연산자 x++ / x-- : 인접연산에 사용된 후 1을 증감처리한다.
 		int x = 10;
 		++x;
-		System.out.println(x);// 1
+		System.out.println(x);// 11
 		--x;
 		System.out.println(x);// 10
 

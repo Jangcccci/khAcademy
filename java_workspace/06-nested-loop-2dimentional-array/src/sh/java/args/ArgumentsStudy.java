@@ -10,8 +10,8 @@ public class ArgumentsStudy {
 	public static void main(String[] args) {
 		ArgumentsStudy study = new ArgumentsStudy();
 		
-//		study.test1(args);
-		study.test2(args);
+		study.test1(args);
+//		study.test2(args);
 		
 		String s = "abc 가나다 123";
 		String[] arr = s.split(" ");

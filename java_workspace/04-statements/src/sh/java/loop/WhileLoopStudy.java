@@ -98,8 +98,9 @@ public class WhileLoopStudy {
 	/**
 	 * 
 	 * do -while
-	 * - 기존반목문 조건식 - 실행구문의 순서와 다르게
-	 *   실행 - 조건식 순서로 처리함.	
+	 * - 기존반목문 조건식 
+	 * - 실행구문의 순서와 다르게 실행 
+	 *   - 조건식 순서로 처리함.	
 	 */
 	
 	public void test3() {

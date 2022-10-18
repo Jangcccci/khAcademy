@@ -22,9 +22,9 @@ public class SwitchStudy {
 		SwitchStudy study = new SwitchStudy();
 //		study.test1();
 //		study.test2();
-//		study.test3();
+		study.test3();
 //		study.test4();
-		study.test5();
+//		study.test5();
 	}
 	/**
 	 * 
@@ -52,7 +52,8 @@ public class SwitchStudy {
 		System.out.printf("당신의 학점은 [%c]입니다.", grade);
 	}
 	/**
-	 * switch - fall through
+	 * switch 
+	 * - fall through
 	 * -break 키워드가 없다면, 다음 case문을 연달아 실행한다.
 	 * -break란? 현재 중괄호 블럭을 탈출해라.
 	 * 

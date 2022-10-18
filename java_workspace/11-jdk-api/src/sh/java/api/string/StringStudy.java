@@ -24,7 +24,8 @@ public class StringStudy {
 //		study.test1();
 //		study.test2();
 //		study.test3();
-		study.test4();
+//		study.test4();
+		study.test5();
 	}
 	
 	/**
@@ -119,6 +120,11 @@ public class StringStudy {
 		System.out.println(s2.hashCode()); // 3254818
 		System.out.println(s3.hashCode()); // 3254818
 		System.out.println(s4.hashCode()); // 3254818 -> hashCode가 모두 같다(Override법칙 : equals 값이 같다면 hashCode값도 같아야 한다)
+		
+		
+	}
+	
+	public void test5() {
 		
 		
 	}
