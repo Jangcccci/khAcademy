@@ -69,8 +69,12 @@ public class View {
 	public void afterLoginMenu() {
 		String afterLoginMenu = "==================================\n" 
 							  + "\t회원메뉴\n"
-				+ "==================================\n" + "1. 계좌 메뉴(잔액확인/충전)\n" + "2. 주문 메뉴\n" + "3. 로그아웃\n"
-				+ "==================================\n" + "선택 : ";
+							  + "==================================\n" 
+							  + "1. 계좌 메뉴(잔액확인/충전)\n" 
+							  + "2. 주문 메뉴\n" 
+							  + "3. 로그아웃\n"
+							  + "==================================\n" 
+							  + "선택 : ";
 
 		while (true) {
 			System.out.print(afterLoginMenu);
@@ -95,8 +99,14 @@ public class View {
 
 	public void accountMenu() {
 
-		String menu = "==================================\n" + "\t계좌 메뉴\n" + "==================================\n"
-				+ "1. 잔액 확인\r\n" + "2. 충전\r\n" + "3. 뒤로가기\r\n" + "==================================\n" + "선택 : ";
+		String menu = "==================================\n" 
+					+ "\t계좌 메뉴\n" 
+					+ "==================================\n"
+					+ "1. 잔액 확인\r\n" 
+					+ "2. 충전\r\n" 
+					+ "3. 뒤로가기\r\n" 
+					+ "==================================\n" 
+					+ "선택 : ";
 
 		while (true) {
 			System.out.print(menu);
@@ -122,9 +132,15 @@ public class View {
 	}
 
 	public void order() {
-		String orderView = "==================================\n" + "\t음식점을 선택해주세요.\n"
-				+ "==================================\n" + "1. 족발, 보쌈집\n" + "2. 찜, 탕, 찌개집\n" + "3. 돈까스, 회, 일식집\n"
-				+ "4. 장바구니 비우기\n" + "5. 뒤로가기\n" + "==================================\n" + "선택 : ";
+		String orderView = "==================================\n" 
+						 + "\t음식점을 선택해주세요.\n"
+						 + "==================================\n" 
+						 + "1. 족발, 보쌈집\n" + "2. 찜, 탕, 찌개집\n" 
+						 + "3. 돈까스, 회, 일식집\n"
+						 + "4. 장바구니 비우기\n" 
+						 + "5. 뒤로가기\n" 
+						 + "==================================\n" 
+						 + "선택 : ";
 
 		while (true) {
 			System.out.print(orderView);
@@ -163,14 +179,19 @@ public class View {
 	public void pork() {
 
 		while (true) {
-			System.out.print("==================================\n" + "\t족발 보쌈을 선택하셨습니다.\n" + "\t메뉴를 선택해주세요.\n"
-					+ "==================================\n");
+			System.out.print("==================================\n" 
+							+ "\t족발 보쌈을 선택하셨습니다.\n" );
+			System.out.print("\t최소주문 금액 : " + porkstore.getMinPrice() + "\n"
+							+ "\t메뉴를 선택해주세요.\n"
+							+ "==================================\n");
 			List<Menu> porkMenu = new ArrayList<>();
 			porkMenu = porkstore.getMenuList();
 			for (int i = 0; i < porkMenu.size(); i++) {
 				System.out.println((i + 1) + ". " + porkMenu.get(i).toString());
 			}
-			System.out.print("6. 뒤로가기\n" + "==================================\n" + "선택 : ");
+			System.out.print("6. 뒤로가기\n" 
+							+ "==================================\n" 
+							+ "선택 : ");
 			String choice = sc.nextLine();
 			try {
 				int i = Integer.parseInt(choice);
@@ -250,8 +271,11 @@ public class View {
 	public void soup() {
 
 		while (true) {
-			System.out.print("==================================\n" + "\t찜 탕 찌개를 선택하셨습니다.\n" + "\t메뉴를 선택해주세요.\n"
-					+ "==================================\n");
+			System.out.print("==================================\n" 
+							+ "\t찜 탕 찌개를 선택하셨습니다.\n"); 
+			System.out.print("\t최소주문 금액 : " + soupstore.getMinPrice() + "\n"
+							+ "\t메뉴를 선택해주세요.\n"
+							+ "==================================\n");
 			List<Menu> soupMenu = new ArrayList<>();
 			soupMenu = soupstore.getMenuList();
 			for (int i = 0; i < soupMenu.size(); i++) {
@@ -337,8 +361,11 @@ public class View {
 	public void fish() {
 
 		while (true) {
-			System.out.print("==================================\n" + "\t돈까스 회 일식을 선택하셨습니다.\n" + "\t메뉴를 선택해주세요.\n"
-					+ "==================================\n");
+			System.out.print("==================================\n" 
+							+ "\t돈까스 회 일식을 선택하셨습니다.\n"); 
+			System.out.print("\t최소주문 금액 : " + fishstore.getMinPrice() + "\n"
+							+ "\t메뉴를 선택해주세요.\n"
+							+ "==================================\n");
 			List<Menu> fishMenu = new ArrayList<>();
 			fishMenu = fishstore.getMenuList();
 			for (int i = 0; i < fishMenu.size(); i++) {

@@ -14,7 +14,7 @@ public abstract class Store {
     public abstract List<Menu> getMenuList();
 
 	public abstract void setMenuList(String menuName, int price);
-
+	
 	public Store() {
         super();
     }
@@ -40,7 +40,7 @@ public abstract class Store {
         this.storeName = storeName;
     }
 
-    public long getMinPrice() {
+    public int getMinPrice() {
         return minPrice;
     }
 

@@ -1,8 +1,6 @@
 package baemin.store.menu;
 
-import java.io.Serializable;
-
-import baemin.store.Store;
+import java.io.Serializable; 
 
 public class Menu implements Serializable{
 

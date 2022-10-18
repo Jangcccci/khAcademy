@@ -5,14 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Scanner;
-import java.util.Set;
 import baemin.order.member.Member;
 import baemin.order.member.MemberIO;
+import baemin.store.FishStore;
+import baemin.store.PorkStore;
+import baemin.store.SoupStore;
 import baemin.store.Store;
 import baemin.store.menu.Menu;
 
@@ -21,7 +20,11 @@ public class MemberManager {
 	private HashMap<String, Member> memberMap;
 	private List<Integer> basketStore = new ArrayList<>();
 	private String user = null;
-	int totalPrice;
+	private int totalPrice;
+	private int firstIndex;
+	private int porkMinPrice = (int) new PorkStore().getMinPrice();
+	private int soupMinPrice = (int) new SoupStore().getMinPrice();
+	private int fishMinPrice = (int) new FishStore().getMinPrice();
 
 	List<Store> stores = new ArrayList<>();
 	List<Menu> menuList = new ArrayList<>();
@@ -47,6 +50,10 @@ public class MemberManager {
 				}
 			} else {
 				FileOutputStream fos = new FileOutputStream(memberFile);
+				this.memberMap = memberIO.loadMemberFile();
+				if (this.memberMap == null) {
+					this.memberMap = memberIO.loadMemberFile();
+				}
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -61,24 +68,6 @@ public class MemberManager {
 		memberMap.put(member.getId(), member);
 		memberIO.saveMemberFile(memberMap);
 		return true;
-
-//		Set<Map.Entry<String, Member>> memberSet = memberMap.entrySet();
-//		Iterator<Map.Entry<String, Member>> iter = memberSet.iterator();
-//		boolean bool = false;
-//		
-//		while(iter.hasNext()) {
-//			Entry<String, Member> entry = iter.next();
-//			if(member.getId().equals(entry.getKey())) {
-//				bool =  false;
-//			}else {
-//				// 생성된 Member객체를 Map에 추가
-//				memberMap.put(member.getId(), member);
-//				// 실제 파일에도 실시간 기록
-//				memberIO.saveMemberMap(memberMap);
-//				bool = true;
-//			}
-//		}
-//		return bool;	
 	}
 
 	// 회원탈퇴
@@ -134,7 +123,7 @@ public class MemberManager {
 
 	// 장바구니 추가
 	public boolean addBasket(int index, Menu menu) {
-		
+		firstIndex = index;
 		basketStore.add(index);
 
 		if (memberMap.get(user).getBasket() == null) {
@@ -161,35 +150,65 @@ public class MemberManager {
 	public void removeBasket() {
 		basketStore.removeAll(basketStore);
 		menuList.removeAll(menuList);
+		totalPrice = 0;
 		memberMap.get(user).setBasket(null);
 	}
 
-	// 주문
+	// 결재
 	public boolean subBalance() {
 		long balance = 0;
 		balance = memberMap.get(user).getBalance();
-		if (balance >= totalPrice) {
-			memberMap.get(user).setBalance(balance -= totalPrice);
-			removeBasket();
-			memberIO.saveMemberFile(memberMap);
-			return true;
-		} else {
-			System.out.println("잔액이 부족합니다. 충전해주세요.");
-			removeBasket();
+		if(firstIndex == 0 && totalPrice >= porkMinPrice) {
+			if (balance >= totalPrice) {
+				memberMap.get(user).setBalance(balance -= totalPrice);
+				memberIO.saveMemberFile(memberMap);
+				return true;
+			} else {
+				System.out.println("잔액이 부족합니다. 충전해주세요.");
+				removeBasket();
+				return false;
+			}
+		}else if(firstIndex == 1 && totalPrice >= soupMinPrice) {
+			if (balance >= totalPrice) {
+				memberMap.get(user).setBalance(balance -= totalPrice);
+				memberIO.saveMemberFile(memberMap);
+				return true;
+			} else {
+				System.out.println("잔액이 부족합니다. 충전해주세요.");
+				removeBasket();
+				return false;
+			}
+		}else if(firstIndex == 2 && totalPrice >= fishMinPrice) {
+			if (balance >= totalPrice) {
+				memberMap.get(user).setBalance(balance -= totalPrice);
+				memberIO.saveMemberFile(memberMap);
+				return true;
+			} else {
+				System.out.println("잔액이 부족합니다. 충전해주세요.");
+				removeBasket();
+				return false;
+			}
+		}else {
+			switch(firstIndex) {
+			case 0 : System.out.println("최소주문금액 : " + porkMinPrice + "원 이상 주문해주세요.");break;
+			case 1 : System.out.println("최소주문금액 : " + soupMinPrice + "원 이상 주문해주세요.");break;
+			case 2 : System.out.println("최소주문금액 : " + fishMinPrice + "원 이상 주문해주세요.");break;
+			}
 			return false;
 		}
+		
 	}
+	
     // 환불
     public void refund() {
         long balance = memberMap.get(user).getBalance();
         memberMap.get(user).setBalance(balance += totalPrice);
-        removeBasket();
+        System.out.printf("주문취소하여 환불되었습니다. 환불금액 : %s, 현재 잔액 : %s\n", totalPrice, balance);
         memberIO.saveMemberFile(memberMap);
         removeBasket();
-        System.out.printf("주문취소하여 환불되었습니다. 환불금액 : %s, 현재 잔액 : %s\n", totalPrice, balance);
     }
     
-
+    // 주문실행
     public void run() {
         boolean bool = subBalance();
         if (bool == true) {
@@ -202,15 +221,17 @@ public class MemberManager {
             if(!((end - start) > 11000)) {
                 refund(); 
             }else {
-               return;
+            	removeBasket();
+            	return;
             }
         } else {
             return;
         }
         return;
     }
+    
     class SleepThread implements Runnable {
-    	String[] array = new String[] { "!!조리시작!! 10초안에 아무키나 누르면 주문이 취소됩니다.", "~~조리중~~ 9초안에 아무키나 누르면 주문이 취소됩니다.",
+    	String[] array = new String[] { "!!조리시작!! 10초안에 엔터키를 누르면 주문이 취소됩니다.", "~~조리중~~ 9초안에 아무키나 누르면 주문이 취소됩니다.",
     			"~~조리중~~ 8초안에 아무키나 누르면 주문이 취소됩니다.", "~~조리중~~ 7초안에 아무키나 누르면 주문이 취소됩니다.", "~~조리중~~ 6초안에 아무키나 누르면 주문이 취소됩니다.",
     			"!!배달시작!! 5초안에 아무키나 누르면 주문이 취소됩니다.", "~~배달중~~ 4초안에 아무키나 누르면 주문이 취소됩니다.", "~~배달중~~ 3초안에 아무키나 누르면 주문이 취소됩니다.",
     			"~~배달중~~ 2초안에 아무키나 누르면 주문이 취소됩니다.", "~~배달중~~ 1초안에 아무키나 누르면 주문이 취소됩니다.", "!!!배달 완료!!! 맛있게 드세요~~~" };

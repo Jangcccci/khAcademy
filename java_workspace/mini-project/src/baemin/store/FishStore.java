@@ -6,7 +6,7 @@ import java.util.List;
 import baemin.store.menu.Menu;
 
 public class FishStore extends Store{
-    private final int MINPRICE = 30000;
+    private final int minPrice = 18000;
     private List<Menu> menuList = new ArrayList<>();
 
     public FishStore() {
@@ -26,6 +26,10 @@ public class FishStore extends Store{
     public FishStore(String storeName, int minPrice) {
         super(storeName, minPrice);
         // TODO Auto-generated constructor stub
+    }
+    
+    public int getMinPrice() {
+        return minPrice;
     }
 
     @Override

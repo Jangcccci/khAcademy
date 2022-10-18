@@ -32,7 +32,6 @@ public class MemberIO {
 				
 		}
 		catch (EOFException e) {
-			System.out.println("dd");
 			HashMap<String, Member> tmp = new HashMap<>();
 			saveMemberFile(tmp);
 			//e.printStackTrace();
